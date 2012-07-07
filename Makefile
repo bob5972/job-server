@@ -14,6 +14,7 @@ DEPDIR=$(DEPROOT)
 TARGET=job-server
 
 #The BUILDROOT folder is included for config.h
+WARNINGS = -Wall -Wno-unused-but-set-variable
 CFLAGS = ${DEFAULT_CFLAGS} -I $(BUILDROOT) $(INCLUDE_FLAGS)
 CPPFLAGS = ${CFLAGS}
 

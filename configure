@@ -63,7 +63,7 @@ echo '#define DEBUG ' $DEBUG >> $CONFIG_H
 echo DEBUG=$DEBUG >> $CONFIG_MK;
 
 if [ "$DEBUG" != "0" ]; then
-	DEFAULT_CFLAGS="${DEFAULT_CFLAGS} -Werror -Wall -g"
+	DEFAULT_CFLAGS="${DEFAULT_CFLAGS} -Werror -g"
 else
 	if [ "$DEFAULT_CFLAGS" == "" ]; then
 		DEFAULT_CFLAGS="-march=native -O2 -fomit-frame-pointer"
