@@ -77,7 +77,7 @@ WaitForChild(void)
 		ASSERT(FALSE); // We didn't find our child??
 	}
 	
-	Warning("%s", "Didn't find a free child... Trying again.\n");
+	Warning("%s: Didn't find a free child... Trying again.\n", __FUNCTION__);
 	WaitForChild();
 }
 
