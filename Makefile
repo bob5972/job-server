@@ -37,8 +37,8 @@ $(DEPROOT)/%.dpp: $(SRCDIR)/%.cpp Makefile
 	    -MF $@ ${CPPFLAGS} $<;
 
 #No paths. VPATH is assumed
-C_SOURCES = main.c
-CPP_SOURCES = 
+C_SOURCES = 
+CPP_SOURCES = main.cpp
 
 #For reasons I cannot fathom, MBLIB_OBJ has to be last
 # or things don't link right...
