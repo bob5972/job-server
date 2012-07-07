@@ -81,12 +81,22 @@ WaitForChild(void)
 	WaitForChild();
 }
 
-int main()
+int main(int argc, char *argv[])
 {
 	MBString line;
 	pid_t pid;
 	
-	mainData.numJobs = get_nprocs();
+	if (argc > 1) {
+		mainData.numJobs = atoi(argv[1]);
+	} else {
+		mainData.numJobs = get_nprocs();
+	}
+			
+	if (mainData.numJobs <= 0) {
+		Warning("Invalid job count specified\n");
+		exit(1);
+	}
+	
 	mainData.children.resize(mainData.numJobs);
 	
 	for (int x = 0; x < mainData.numJobs; x++) {
@@ -94,7 +104,6 @@ int main()
 	}
 	
 	while (!cin.eof()) {
-		printf("> ");
 		MBString_GetLine(cin, line);
 		if (!line.isEmpty()) {			
 			WaitForChild();
@@ -106,17 +115,18 @@ int main()
 				exit(0);
 			} else {
 				// We are the parent
-				Warning("%s: Launched [%d] %s\n", __FUNCTION__, pid, line.cstr());//banackm
+				Warning("%s: Launched [%d] %s\n", __FUNCTION__,
+				        pid, line.cstr());
 				InsertChild(pid);
 			}
 		}
 	}
 	
 	// Wait for any remaining children.
+	Warning("%s: Waiting for all children...\n", __FUNCTION__);
 	for (int x = 0; x < mainData.children.size(); x++) {
 		pid = mainData.children[x];
 		if (pid != PID_INVALID) {
-			printf("%s: Waiting for %d\n", __FUNCTION__, pid);//banackm
 			waitpid(pid, NULL, 0);
 		}
 	}
