@@ -1,4 +1,23 @@
 /*
+ * This file is part of job-server.
+ * Copyright (c) 2015 Michael Banack <bob5972@banack.net>
+ *
+ * job-server is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * job-server is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with job-server.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+
+/*
  * main.cpp --
  *
  *     Main entry point for job-server.
@@ -9,9 +28,10 @@
 #include <sys/sysinfo.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <unistd.h>
 
-#include "MBString.h"
-#include "MBVector.h"
+#include "MBString.hpp"
+#include "MBVector.hpp"
 
 using namespace std;
 
@@ -111,12 +131,12 @@ int main(int argc, char *argv[])
 			pid = fork();
 			if (!pid) {
 				// We are the child
-				system(line.cstr());
+				system(line.CStr());
 				exit(0);
 			} else {
 				// We are the parent
 				Warning("%s: Launched [%d] %s\n", __FUNCTION__,
-				        pid, line.cstr());
+				        pid, line.CStr());
 				InsertChild(pid);
 			}
 		}
