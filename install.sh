@@ -1,4 +1,4 @@
 #!/bin/bash
 
 make
-cp -i build/job-server ~/bin/job-server
+cp -i build/job-server ~/bin/local/job-server
